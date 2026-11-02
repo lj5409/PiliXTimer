@@ -241,8 +241,8 @@ fun TimerScreen(
                             modifier = Modifier.fillMaxSize(),
                         )
 
-                        // 轻提醒时数字同步高亮并轻微放大
-                        val pulseScale = 1f + 0.10f * pulse.value
+                        // 轻提醒时数字同步高亮并放大
+                        val pulseScale = 1f + 0.14f * pulse.value
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier.graphicsLayer {
@@ -453,26 +453,26 @@ fun TimerRing(
             else -> 1f
         }
 
-        // 外发光
+        // 外发光：轻提醒时明显增强（加宽 + 提亮）
         drawArc(
-            color = accent.copy(alpha = (0.12f + 0.34f * pulse + 0.10f * breathing) * alpha),
+            color = accent.copy(alpha = ((0.12f + 0.50f * pulse + 0.10f * breathing) * alpha).coerceAtMost(1f)),
             startAngle = startAngle,
             sweepAngle = sweep,
             useCenter = false,
             topLeft = topLeft,
             size = arcSize,
-            style = Stroke(width = stroke * 2.1f, cap = StrokeCap.Round),
+            style = Stroke(width = stroke * (2.1f + 0.8f * pulse), cap = StrokeCap.Round),
         )
 
-        // 进度
+        // 进度：轻提醒时同步提亮
         drawArc(
-            color = accent.copy(alpha = alpha),
+            color = accent.copy(alpha = (alpha + 0.35f * pulse).coerceAtMost(1f)),
             startAngle = startAngle,
             sweepAngle = sweep,
             useCenter = false,
             topLeft = topLeft,
             size = arcSize,
-            style = Stroke(width = stroke, cap = StrokeCap.Round),
+            style = Stroke(width = stroke * (1f + 0.12f * pulse), cap = StrokeCap.Round),
         )
 
         // 圆头高亮
