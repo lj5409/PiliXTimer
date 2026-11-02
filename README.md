@@ -1,8 +1,18 @@
 # PiliX Timer
 
-为 **EO Forum Update 环节** 设计的 Android 分段计时器。原生 Kotlin + Jetpack Compose 实现，界面为深色极简风格，无任何系统通知。
+为 **EO Forum Update 环节** 设计的分段计时器。有 Android 原生版（Kotlin + Jetpack Compose）和网页版 PWA 两套实现，界面与逻辑完全一致。
 
-![技术栈](https://img.shields.io/badge/Kotlin-2.0.21-blue) ![Compose](https://img.shields.io/badge/Compose-BOM%202024.12-cyan) ![minSdk](https://img.shields.io/badge/minSdk-26%20(Android%208.0)-green)
+![技术栈](https://img.shields.io/badge/Kotlin-2.0.21-blue) ![Compose](https://img.shields.io/badge/Compose-BOM%202024.12-cyan) ![minSdk](https://img.shields.io/badge/minSdk-26%20(Android%208.0)-green) ![Pages](https://img.shields.io/badge/Pages-live-success)
+
+### 📱 直接使用
+
+| 平台 | 入口 |
+|---|---|
+| **iPhone / iPad** | **https://lj5409.github.io/PiliXTimer/** → Safari 打开 → 分享 → **添加到主屏幕** |
+| **Android** | [Releases 下载 APK](https://github.com/lj5409/PiliXTimer/releases) 直接安装 |
+| **电脑浏览器** | 同一网页地址，窗口窄一点体验最好 |
+
+> 网页版不需要上架 App Store、不需要苹果开发者账号，加到主屏幕后全屏运行，可离线使用。
 
 ---
 
@@ -154,16 +164,26 @@ powershell -ExecutionPolicy Bypass -File tools\serve_pwa.ps1
 ```powershell
 cd PiliXtimer
 git init
-git add web/
+git add web/ app/ tools/ docs/ .github/ README.md .gitignore
 git commit -m "PWA 版 PiliX Timer"
 git branch -M main
 git remote add origin https://github.com/<你的用户名>/PiliXtimer.git
 git push -u origin main
 ```
 
-然后在 GitHub 仓库 **Settings → Pages → Source 选 `main` 分支 / `web` 目录**，
-几分钟后 `https://<你的用户名>.github.io/PiliXtimer/` 即可访问。
-（建议把仓库设为 Public，Pages 才有免费额度。）
+首次部署也可在仓库 **Settings → Pages → Source** 手动选一次 `main` 分支 / `web` 目录。
+
+> 本仓库已内置 `.github/workflows/deploy-pages.yml`：**推送 `main` 且 `web/` 有改动时自动发布**，
+> Pages 的 Source 已设为 *GitHub Actions*，无需手动配置。线上地址：
+> **https://lj5409.github.io/PiliXTimer/**
+>
+> ```powershell
+> git add -A
+> git commit -m "更新网页版"
+> git push origin main     # 自动触发部署
+> ```
+>
+> 若要绑自己的域名：仓库 **Settings → Pages → Custom domain** 填域名，再加一条 CNAME 记录。
 
 ### 与 Android 版的差异
 
